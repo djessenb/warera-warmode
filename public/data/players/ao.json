@@ -1,0 +1,926 @@
+[
+  {
+    "_id": "69f434b31b31f76fc1305ffc",
+    "username": "user_8NZM5W",
+    "level": 1,
+    "skillPoints": 0,
+    "skills": {
+      "energy": {
+        "level": 0,
+        "total": 30
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 100
+      },
+      "companies": {
+        "level": 0,
+        "total": 2
+      },
+      "entrepreneurship": {
+        "level": 0,
+        "total": 30
+      },
+      "production": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 100
+      },
+      "armor": {
+        "level": 0,
+        "total": 0
+      },
+      "precision": {
+        "level": 0,
+        "total": 50
+      },
+      "dodge": {
+        "level": 0,
+        "total": 0
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 1,
+    "createdAt": "2026-05-01T05:05:55.734Z"
+  },
+  {
+    "_id": "69f28c3211d3ae8c3de9be32",
+    "username": "user_WFNF9B",
+    "level": 2,
+    "skillPoints": 8,
+    "skills": {
+      "energy": {
+        "level": 0,
+        "total": 30
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 1,
+        "total": 125
+      },
+      "companies": {
+        "level": 0,
+        "total": 2
+      },
+      "entrepreneurship": {
+        "level": 0,
+        "total": 30
+      },
+      "production": {
+        "level": 1,
+        "total": 13
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 100
+      },
+      "armor": {
+        "level": 0,
+        "total": 0
+      },
+      "precision": {
+        "level": 2,
+        "total": 60
+      },
+      "dodge": {
+        "level": 0,
+        "total": 0
+      },
+      "lootChance": {
+        "level": 2,
+        "total": 9
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 1,
+    "createdAt": "2026-04-29T22:54:42.047Z"
+  },
+  {
+    "_id": "69f265ab9cb66a901c9201fa",
+    "username": "user_TAK6H7",
+    "level": 1,
+    "skillPoints": 0,
+    "skills": {
+      "energy": {
+        "level": 0,
+        "total": 30
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 100
+      },
+      "companies": {
+        "level": 0,
+        "total": 2
+      },
+      "entrepreneurship": {
+        "level": 0,
+        "total": 30
+      },
+      "production": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 100
+      },
+      "armor": {
+        "level": 0,
+        "total": 0
+      },
+      "precision": {
+        "level": 0,
+        "total": 50
+      },
+      "dodge": {
+        "level": 0,
+        "total": 0
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 1,
+    "createdAt": "2026-04-29T20:10:19.510Z"
+  },
+  {
+    "_id": "69f1898bd4aa1539dab3db5d",
+    "username": "user_3MPP1I",
+    "level": 1,
+    "skillPoints": 0,
+    "skills": {
+      "energy": {
+        "level": 0,
+        "total": 30
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 100
+      },
+      "companies": {
+        "level": 0,
+        "total": 2
+      },
+      "entrepreneurship": {
+        "level": 0,
+        "total": 30
+      },
+      "production": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 100
+      },
+      "armor": {
+        "level": 0,
+        "total": 0
+      },
+      "precision": {
+        "level": 0,
+        "total": 50
+      },
+      "dodge": {
+        "level": 0,
+        "total": 0
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 1,
+    "createdAt": "2026-04-29T04:31:07.136Z"
+  },
+  {
+    "_id": "69ea737dfc17154e2edbde0d",
+    "username": "Bootloot",
+    "level": 9,
+    "skillPoints": 36,
+    "skills": {
+      "energy": {
+        "level": 2,
+        "total": 50
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 1,
+        "total": 160
+      },
+      "companies": {
+        "level": 1,
+        "total": 3
+      },
+      "entrepreneurship": {
+        "level": 4,
+        "total": 50
+      },
+      "production": {
+        "level": 6,
+        "total": 28
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 15
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 113
+      },
+      "armor": {
+        "level": 0,
+        "total": 14
+      },
+      "precision": {
+        "level": 0,
+        "total": 50
+      },
+      "dodge": {
+        "level": 0,
+        "total": 2
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 9,
+    "createdAt": "2026-04-23T19:31:09.493Z"
+  },
+  {
+    "_id": "69bbcd302b3745eea56ebcde",
+    "username": "Elimua",
+    "level": 9,
+    "skillPoints": 36,
+    "skills": {
+      "energy": {
+        "level": 2,
+        "total": 50
+      },
+      "health": {
+        "level": 1,
+        "total": 110
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 2,
+        "total": 243
+      },
+      "companies": {
+        "level": 1,
+        "total": 3
+      },
+      "entrepreneurship": {
+        "level": 3,
+        "total": 45
+      },
+      "production": {
+        "level": 5,
+        "total": 25
+      },
+      "criticalChance": {
+        "level": 2,
+        "total": 32
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 117
+      },
+      "armor": {
+        "level": 1,
+        "total": 17
+      },
+      "precision": {
+        "level": 2,
+        "total": 64
+      },
+      "dodge": {
+        "level": 0,
+        "total": 9
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 13,
+    "createdAt": "2026-03-19T10:17:20.275Z"
+  },
+  {
+    "_id": "696744cc5579e72510af7a68",
+    "username": "Mpetelo_Massami",
+    "level": 15,
+    "skillPoints": 60,
+    "skills": {
+      "energy": {
+        "level": 5,
+        "total": 80
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 2,
+        "total": 699
+      },
+      "companies": {
+        "level": 4,
+        "total": 6
+      },
+      "entrepreneurship": {
+        "level": 4,
+        "total": 50
+      },
+      "production": {
+        "level": 5,
+        "total": 25
+      },
+      "criticalChance": {
+        "level": 2,
+        "total": 67
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 240
+      },
+      "armor": {
+        "level": 0,
+        "total": 123
+      },
+      "precision": {
+        "level": 1,
+        "total": 100
+      },
+      "dodge": {
+        "level": 0,
+        "total": 59
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 2,
+        "total": 8
+      }
+    },
+    "militaryRank": 22,
+    "createdAt": "2026-01-14T07:25:00.907Z"
+  },
+  {
+    "_id": "6951374567189f47ef62adf4",
+    "username": "Leiter",
+    "level": 29,
+    "skillPoints": 111,
+    "skills": {
+      "energy": {
+        "level": 7,
+        "total": 100
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 225
+      },
+      "companies": {
+        "level": 9,
+        "total": 11
+      },
+      "entrepreneurship": {
+        "level": 4,
+        "total": 50
+      },
+      "production": {
+        "level": 7,
+        "total": 31
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 18
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 109
+      },
+      "armor": {
+        "level": 0,
+        "total": 10
+      },
+      "precision": {
+        "level": 0,
+        "total": 53
+      },
+      "dodge": {
+        "level": 0,
+        "total": 7
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 63,
+    "createdAt": "2025-12-28T13:57:25.377Z"
+  },
+  {
+    "_id": "69446da0b7589b869756a1f7",
+    "username": "Manuel_Vicente",
+    "level": 20,
+    "skillPoints": 76,
+    "skills": {
+      "energy": {
+        "level": 7,
+        "total": 100
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 155
+      },
+      "companies": {
+        "level": 4,
+        "total": 6
+      },
+      "entrepreneurship": {
+        "level": 4,
+        "total": 50
+      },
+      "production": {
+        "level": 7,
+        "total": 31
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 11
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 143
+      },
+      "armor": {
+        "level": 0,
+        "total": 20
+      },
+      "precision": {
+        "level": 0,
+        "total": 63
+      },
+      "dodge": {
+        "level": 0,
+        "total": 12
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 57,
+    "createdAt": "2025-12-18T21:09:52.930Z"
+  },
+  {
+    "_id": "69413b38f3565883c500b49e",
+    "username": "Diego_boss_332",
+    "level": 31,
+    "skillPoints": 118,
+    "skills": {
+      "energy": {
+        "level": 2,
+        "total": 50
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 206
+      },
+      "companies": {
+        "level": 5,
+        "total": 7
+      },
+      "entrepreneurship": {
+        "level": 9,
+        "total": 75
+      },
+      "production": {
+        "level": 10,
+        "total": 40
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 18
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 108
+      },
+      "armor": {
+        "level": 0,
+        "total": 7
+      },
+      "precision": {
+        "level": 0,
+        "total": 55
+      },
+      "dodge": {
+        "level": 0,
+        "total": 8
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 68,
+    "createdAt": "2025-12-16T10:58:00.424Z"
+  },
+  {
+    "_id": "69231fb8c6bbe2053f5582ac",
+    "username": "Simao_Toco",
+    "level": 29,
+    "skillPoints": 116,
+    "skills": {
+      "energy": {
+        "level": 0,
+        "total": 30
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 2,
+        "total": 306
+      },
+      "companies": {
+        "level": 8,
+        "total": 10
+      },
+      "entrepreneurship": {
+        "level": 8,
+        "total": 70
+      },
+      "production": {
+        "level": 8,
+        "total": 34
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 23
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 137
+      },
+      "armor": {
+        "level": 1,
+        "total": 31
+      },
+      "precision": {
+        "level": 2,
+        "total": 75
+      },
+      "dodge": {
+        "level": 1,
+        "total": 8
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 57,
+    "createdAt": "2025-11-23T14:52:40.720Z"
+  },
+  {
+    "_id": "691ca885cc751d7f458bf17d",
+    "username": "St_Michael_Archangel",
+    "level": 31,
+    "skillPoints": 121,
+    "skills": {
+      "energy": {
+        "level": 6,
+        "total": 90
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 205
+      },
+      "companies": {
+        "level": 7,
+        "total": 9
+      },
+      "entrepreneurship": {
+        "level": 8,
+        "total": 70
+      },
+      "production": {
+        "level": 8,
+        "total": 34
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 19
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 119
+      },
+      "armor": {
+        "level": 0,
+        "total": 17
+      },
+      "precision": {
+        "level": 0,
+        "total": 55
+      },
+      "dodge": {
+        "level": 0,
+        "total": 8
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 71,
+    "createdAt": "2025-11-18T17:10:29.332Z"
+  },
+  {
+    "_id": "691a0bfd99b6f95d039d0d53",
+    "username": "PedroTonhaPedale",
+    "level": 30,
+    "skillPoints": 114,
+    "skills": {
+      "energy": {
+        "level": 6,
+        "total": 90
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 162
+      },
+      "companies": {
+        "level": 8,
+        "total": 10
+      },
+      "entrepreneurship": {
+        "level": 6,
+        "total": 60
+      },
+      "production": {
+        "level": 8,
+        "total": 34
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 14
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 102
+      },
+      "armor": {
+        "level": 0,
+        "total": 5
+      },
+      "precision": {
+        "level": 0,
+        "total": 54
+      },
+      "dodge": {
+        "level": 0,
+        "total": 5
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 51,
+    "createdAt": "2025-11-16T17:38:05.822Z"
+  },
+  {
+    "_id": "687a3c331406f901ee5384c0",
+    "username": "Agostinho_Neto",
+    "level": 42,
+    "skillPoints": 167,
+    "skills": {
+      "energy": {
+        "level": 9,
+        "total": 120
+      },
+      "health": {
+        "level": 0,
+        "total": 100
+      },
+      "hunger": {
+        "level": 0,
+        "total": 4
+      },
+      "attack": {
+        "level": 0,
+        "total": 123
+      },
+      "companies": {
+        "level": 10,
+        "total": 12
+      },
+      "entrepreneurship": {
+        "level": 6,
+        "total": 60
+      },
+      "production": {
+        "level": 9,
+        "total": 37
+      },
+      "criticalChance": {
+        "level": 0,
+        "total": 10
+      },
+      "criticalDamages": {
+        "level": 0,
+        "total": 100
+      },
+      "armor": {
+        "level": 0,
+        "total": 0
+      },
+      "precision": {
+        "level": 0,
+        "total": 50
+      },
+      "dodge": {
+        "level": 1,
+        "total": 4
+      },
+      "lootChance": {
+        "level": 0,
+        "total": 5
+      },
+      "management": {
+        "level": 0,
+        "total": 4
+      }
+    },
+    "militaryRank": 73,
+    "createdAt": "2025-07-18T12:21:07.963Z"
+  }
+]
