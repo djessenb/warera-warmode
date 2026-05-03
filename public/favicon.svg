@@ -1,32 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Shield -->
-  <path d="M32 4 L56 16 L56 34 C56 48 44 58 32 62 C20 58 8 48 8 34 L8 16 Z" fill="#0f172a" stroke="#f97316" stroke-width="2"/>
+  <!-- Olive dossier backing for browser-tab visibility -->
+  <rect width="64" height="64" fill="#14160f"/>
 
-  <!-- Left sword -->
-  <g transform="rotate(-35 32 32)">
-    <!-- Blade -->
-    <path d="M30 10 L32 8 L34 10 L34 38 L30 38 Z" fill="#cbd5e1"/>
-    <path d="M32 8 L34 10 L34 38 L32 38 Z" fill="#94a3b8"/>
-    <!-- Guard -->
-    <rect x="25" y="38" width="14" height="3" rx="1.5" fill="#f97316"/>
-    <!-- Grip -->
-    <rect x="30.5" y="41" width="3" height="8" rx="1" fill="#92400e"/>
-    <line x1="32" y1="42" x2="32" y2="48" stroke="#78350f" stroke-width="0.5" opacity="0.5"/>
-    <!-- Pommel -->
-    <circle cx="32" cy="50.5" r="2.5" fill="#f97316"/>
+  <!-- Outer hex frame -->
+  <path d="M 32 4 L 55 18 L 55 46 L 32 60 L 9 46 L 9 18 Z"
+        fill="none" stroke="#f5a623" stroke-width="1.8"/>
+
+  <!-- Inner reticle hex (dashed, subtle) -->
+  <path d="M 32 14 L 47 23 L 47 41 L 32 50 L 17 41 L 17 23 Z"
+        fill="none" stroke="#f5a623" stroke-width="0.5"
+        stroke-dasharray="1.5 1.5" opacity="0.45"/>
+
+  <!-- Six compass ticks at hex vertices -->
+  <g stroke="#f5a623" stroke-width="1.2" stroke-linecap="round">
+    <line x1="32" y1="4"  x2="32" y2="9"/>
+    <line x1="55" y1="18" x2="51" y2="20.5"/>
+    <line x1="55" y1="46" x2="51" y2="43.5"/>
+    <line x1="32" y1="60" x2="32" y2="55"/>
+    <line x1="9"  y1="46" x2="13" y2="43.5"/>
+    <line x1="9"  y1="18" x2="13" y2="20.5"/>
   </g>
 
-  <!-- Right sword -->
-  <g transform="rotate(35 32 32)">
-    <!-- Blade -->
-    <path d="M30 10 L32 8 L34 10 L34 38 L30 38 Z" fill="#cbd5e1"/>
-    <path d="M32 8 L34 10 L34 38 L32 38 Z" fill="#94a3b8"/>
-    <!-- Guard -->
-    <rect x="25" y="38" width="14" height="3" rx="1.5" fill="#f97316"/>
-    <!-- Grip -->
-    <rect x="30.5" y="41" width="3" height="8" rx="1" fill="#92400e"/>
-    <line x1="32" y1="42" x2="32" y2="48" stroke="#78350f" stroke-width="0.5" opacity="0.5"/>
-    <!-- Pommel -->
-    <circle cx="32" cy="50.5" r="2.5" fill="#f97316"/>
-  </g>
+  <!-- Bold outlined Δ — echoes the dashboard's delta column symbol -->
+  <path d="M 32 18 L 44 42 L 20 42 Z"
+        fill="none" stroke="#f5a623" stroke-width="3" stroke-linejoin="miter"/>
 </svg>
