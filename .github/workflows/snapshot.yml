@@ -42,8 +42,10 @@ jobs:
             echo 'No changes to commit'
             exit 0
           fi
-          # No [skip ci] — snapshot.yml has no `on: push` trigger so it can't
-          # re-trigger itself, and we WANT the firebase-hosting-merge workflow
-          # to fire on this commit and deploy fresh data.
           git commit -m "snapshot: $DATE"
           git push
+
+  deploy:
+    needs: snapshot
+    uses: ./.github/workflows/firebase-hosting-merge.yml
+    secrets: inherit
