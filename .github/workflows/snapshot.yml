@@ -2,8 +2,8 @@ name: Daily snapshot
 
 on:
   schedule:
-    # Midnight UTC every day
-    - cron: '0 0 * * *'
+    # 11pm UTC every day
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 permissions:
