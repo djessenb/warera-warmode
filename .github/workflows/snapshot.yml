@@ -28,13 +28,13 @@ jobs:
 
       - name: Gather snapshot
         run: |
-          DATE=$(date -u +%F)
+          DATE=$(date -u -d "+1 day" +%F)
           echo "Gathering snapshot for $DATE"
           node scripts/gather-data.mjs --date "$DATE" --force
 
       - name: Commit and push snapshot
         run: |
-          DATE=$(date -u +%F)
+          DATE=$(date -u -d "+1 day" +%F)
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add public/data/snapshots public/data/countries.json
