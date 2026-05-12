@@ -149,7 +149,7 @@ export class Dashboard implements OnInit, OnDestroy {
     const filters = this.thresholds();
     const lvl20 = this.onlyLvl20Plus();
     const days = this.activeWithinDays();
-    const cutoff = days > 0 ? Date.now() - days * 86_400_000 : 0;
+    const endCutoff = cutoffFor(end.generatedAt, end.date, days);
 
     const startMap = new Map<string, Player[]>();
     const start = this.startData();
@@ -158,11 +158,12 @@ export class Dashboard implements OnInit, OnDestroy {
         startMap.set(cp.country.code, cp.players);
       }
     }
+    const startCutoff = start ? cutoffFor(start.generatedAt, start.date, days) : 0;
 
     return end.countryPlayers.map(({ country, players }) => {
-      const endStats = this.computeStats(players, filters, lvl20, cutoff);
+      const endStats = this.computeStats(players, filters, lvl20, endCutoff);
       const startStats = this.hasComparison()
-        ? this.computeStats(startMap.get(country.code) ?? [], filters, lvl20, cutoff)
+        ? this.computeStats(startMap.get(country.code) ?? [], filters, lvl20, startCutoff)
         : null;
 
       return {
@@ -219,12 +220,11 @@ export class Dashboard implements OnInit, OnDestroy {
     const filters = this.thresholds();
     const lvl20 = this.onlyLvl20Plus();
     const days = this.activeWithinDays();
-    const cutoff = days > 0 ? Date.now() - days * 86_400_000 : 0;
 
     const series = [...raw.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([date, players]) => {
-        const stats = this.computeStats(players, filters, lvl20, cutoff);
+        const stats = this.computeStats(players, filters, lvl20, cutoffFor(null, date, days));
         return { date, ready: stats.matching, pool: stats.pool };
       });
 
@@ -487,6 +487,16 @@ export class Dashboard implements OnInit, OnDestroy {
     }
     return true;
   }
+}
+
+// Anchor the "ACTIVE WITHIN" cutoff to each snapshot's own time, not wall-clock.
+// Using Date.now() makes historical snapshots filter out everyone (every `la`
+// in a 7-day-old snapshot predates "now - 7d"), which breaks deltas and the
+// timeline chart. Prefer generatedAt; fall back to the date's UTC midnight.
+function cutoffFor(generatedAt: string | null | undefined, date: string, days: number): number {
+  if (days <= 0) return 0;
+  const anchor = generatedAt ? Date.parse(generatedAt) : Date.parse(`${date}T00:00:00Z`);
+  return anchor - days * 86_400_000;
 }
 
 // Round 17 → 20, 234 → 250, etc. Picks a "nice" axis ceiling.
