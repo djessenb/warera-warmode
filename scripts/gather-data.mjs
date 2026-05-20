@@ -2,7 +2,18 @@ import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync } from 
 import { join } from 'path';
 import { argv } from 'process';
 
-const API = 'https://api2.warera.io/trpc';
+// Primary: the War Era Gateway (caching + server-side batching/dedup, 200 req/min
+// per key). Falls back to the raw warera API if the gateway is unreachable.
+// The gateway accepts any non-empty X-API-Key — it only buckets per-key rate limits.
+// Attribution: Supported by warerastats.io (https://gateway.warerastats.io).
+const GATEWAY = 'https://gateway.warerastats.io/trpc';
+const API2 = 'https://api2.warera.io/trpc';
+const API_KEY = process.env.GATEWAY_API_KEY || 'warera-warmode';
+
+// How many profile fetches to keep in flight. The gateway coalesces each ~400ms
+// wave of concurrent requests into a single upstream call, so concurrency — not
+// big tRPC batch requests — is what makes this fast.
+const CONCURRENCY = 25;
 
 // Skill schema: positional array of skill levels in this fixed order.
 // DO NOT REORDER — the frontend depends on the index. Append new skills only.
@@ -43,23 +54,62 @@ mkdirSync(PLAYERS_DIR, { recursive: true });
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+// Once the gateway proves unreachable we flip to api2 for the rest of the run,
+// rather than re-probing it on every request.
+let useGateway = true;
+function switchToApi2(reason) {
+  if (!useGateway) return;
+  useGateway = false;
+  console.warn(`⚠ Gateway unavailable (${reason}) — falling back to api2.warera.io for the rest of this run`);
+}
+
 async function trpc(procedure, input = {}, retries = 5) {
-  const url = `${API}/${procedure}?input=${encodeURIComponent(JSON.stringify(input))}`;
   for (let attempt = 1; attempt <= retries; attempt++) {
-    const res = await fetch(url);
+    const base = useGateway ? GATEWAY : API2;
+    const url = `${base}/${procedure}?input=${encodeURIComponent(JSON.stringify(input))}`;
+
+    let res;
+    try {
+      res = await fetch(url, useGateway ? { headers: { 'X-API-Key': API_KEY } } : undefined);
+    } catch (err) {
+      // Network-level failure. Fall back to api2 (without burning a retry) on the
+      // gateway; otherwise back off and retry.
+      if (useGateway) { switchToApi2(err.message); attempt--; continue; }
+      if (attempt === retries) throw err;
+      await sleep(attempt * 2000);
+      continue;
+    }
+
     if (res.ok) {
       const json = await res.json();
       return json.result.data;
     }
     if (res.status === 429) {
-      const wait = attempt * 3000;
+      const wait = attempt * 2000;
       console.log(`    Rate limited on ${procedure}, waiting ${wait / 1000}s (attempt ${attempt}/${retries})`);
       await sleep(wait);
       continue;
     }
+    // 5xx from the gateway → fall back to api2; any other status is a real error.
+    if (useGateway && res.status >= 500) { switchToApi2(`HTTP ${res.status}`); attempt--; continue; }
     throw new Error(`${procedure} failed: ${res.status}`);
   }
-  throw new Error(`${procedure} failed after ${retries} retries (429)`);
+  throw new Error(`${procedure} failed after ${retries} retries`);
+}
+
+// Run `worker` over `items` with at most `concurrency` in flight, preserving
+// result order.
+async function mapPool(items, concurrency, worker) {
+  const results = new Array(items.length);
+  let next = 0;
+  async function run() {
+    while (next < items.length) {
+      const i = next++;
+      results[i] = await worker(items[i], i);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, run));
+  return results;
 }
 
 console.log(`Snapshot date: ${date} (force=${force})`);
@@ -112,32 +162,30 @@ for (const country of countries) {
 
     if (!data.nextCursor || data.items.length < 100) break;
     cursor = data.nextCursor;
-    await sleep(1500);
   }
 
-  console.log(`  Fetching ${allPlayerIds.length} full profiles...`);
-  const players = [];
-
-  for (let i = 0; i < allPlayerIds.length; i++) {
-    const id = allPlayerIds[i];
+  console.log(`  Fetching ${allPlayerIds.length} full profiles (concurrency ${CONCURRENCY})...`);
+  let done = 0;
+  const profiles = await mapPool(allPlayerIds, CONCURRENCY, async id => {
     try {
       const user = await trpc('user.getUserById', { userId: id });
-      players.push({
+      return {
         l: user.leveling?.level ?? 0,
         r: user.militaryRank ?? 0,
         la: user.dates?.lastConnectionAt ?? null,
         s: SKILL_ORDER.map(k => user.skills?.[k]?.level ?? 0),
-      });
+      };
     } catch (err) {
       console.warn(`    Failed to fetch user ${id}: ${err.message}`);
+      return null;
+    } finally {
+      done++;
+      if (done % 200 === 0 || done === allPlayerIds.length) {
+        console.log(`    ${done}/${allPlayerIds.length} profiles fetched`);
+      }
     }
-
-    if ((i + 1) % 3 === 0) await sleep(2000);
-
-    if ((i + 1) % 50 === 0 || i + 1 === allPlayerIds.length) {
-      console.log(`    ${i + 1}/${allPlayerIds.length} profiles fetched`);
-    }
-  }
+  });
+  const players = profiles.filter(Boolean);
 
   writeFileSync(outFile, JSON.stringify(players));
   console.log(`  Saved ${country.code}.json (${players.length} players)`);

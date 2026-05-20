@@ -23,11 +23,13 @@ Built with Angular 20, Tailwind v4, and flatpickr. Hosted on Firebase, gathered 
 ## Architecture
 
 ```
-warera.io API
-     │  (rate-limited, 100 req/min)
+warera.io API  ◀── via War Era Gateway (gateway.warerastats.io)
+     │            caching + server-side batching, 200 req/min; falls back
+     │            to api2.warera.io directly if the gateway is unreachable
      ▼
 GitHub Actions (cron: 00:00 UTC daily)
      │  scripts/gather-data.mjs --date YYYY-MM-DD --force
+     │  (fetches profiles concurrently — CONCURRENCY=25)
      ▼
 public/data/snapshots/{YYYY-MM-DD}/
      ├── meta.json                 (date, generatedAt, complete, skillOrder)
@@ -113,7 +115,10 @@ Flags:
 - `--date YYYY-MM-DD` (default: today UTC) — which snapshot directory to write
 - `--force` — overwrite per-country files that already exist for that date (default behaviour: skip, so partial runs are resumable)
 
-The script throttles to about 70 req/min against warera's 100 req/min limit; expect ~3 hours end-to-end for ~180 countries / 15K players.
+The script fetches profiles concurrently (`CONCURRENCY=25`) through the War Era Gateway, which coalesces each wave of requests into a single upstream call. This brings a full run (~180 countries / 15K players) down from ~3 hours to a few minutes. If the gateway is unreachable it transparently falls back to `api2.warera.io` (slower, since that path is bound by the raw 100 req/min limit and 429-backoff).
+
+Environment:
+- `GATEWAY_API_KEY` — the `X-API-Key` sent to the gateway (default `warera-warmode`). Any non-empty value works; it only buckets per-key rate limits.
 
 ### Re-converting the test data
 

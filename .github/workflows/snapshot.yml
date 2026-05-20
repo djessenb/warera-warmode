@@ -27,6 +27,8 @@ jobs:
           node-version: '22'
 
       - name: Gather snapshot
+        env:
+          GATEWAY_API_KEY: warera-warmode
         run: |
           DATE=$(date -u +%F)
           echo "Gathering snapshot for $DATE"
