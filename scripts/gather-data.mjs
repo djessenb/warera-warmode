@@ -83,13 +83,18 @@ async function trpc(procedure, input = {}, retries = 5) {
     if (res.ok) {
       const json = await res.json();
       if (json && json.result !== undefined) return json.result.data;
-      // HTTP 200 but no tRPC `result`: the gateway masks upstream errors
-      // (4xx/5xx, timeouts) as a 200 carrying an {error} envelope, unlike api2
-      // which reports honest status codes. Treat it as a failed request rather
-      // than dereferencing a missing `.result.data` and crashing the run.
-      const msg = json?.error?.message ?? 'missing result';
-      if (useGateway) { switchToApi2(`200 without result (${String(msg).slice(0, 80)})`); attempt--; continue; }
-      if (attempt === retries) throw new Error(`${procedure} returned no result: ${msg}`);
+      // HTTP 200 but no tRPC `result`: the gateway masks upstream errors as a
+      // 200 carrying an {error} envelope (api2 uses honest status codes). This is
+      // a per-request upstream failure, NOT a sign the gateway is down — so do
+      // NOT switch backends: api2 rate-limits ~80% of requests at this
+      // concurrency, while the gateway coalesces them fine. Fail fast on a
+      // permanent 4xx (e.g. a deleted user → 404); retry transient errors here.
+      const msg = String(json?.error?.message ?? 'missing result');
+      const upstream = Number(msg.match(/http (\d{3})/)?.[1]);
+      if (upstream >= 400 && upstream < 500 && upstream !== 429) {
+        throw new Error(`${procedure} failed: ${upstream}`);
+      }
+      if (attempt === retries) throw new Error(`${procedure} returned no result: ${msg.slice(0, 120)}`);
       await sleep(attempt * 2000);
       continue;
     }
