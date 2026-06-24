@@ -64,6 +64,24 @@ function switchToApi2(reason) {
 }
 
 async function trpc(procedure, input = {}, retries = 5) {
+  // Rate limits (HTTP 429) are transient and reset on a ~1-minute window, so they
+  // get their own generous, capped budget — counting them against `retries` lets
+  // an unlucky 429 burst kill an unguarded call mid-run. The gateway also masks
+  // upstream 429s as a 200 + {error} envelope, so both forms route through here.
+  const MAX_RATE_LIMIT_WAITS = 12;
+  let rateLimitWaits = 0;
+  async function waitOutRateLimit() {
+    if (rateLimitWaits >= MAX_RATE_LIMIT_WAITS) {
+      throw new Error(`${procedure} still rate limited after ${rateLimitWaits} waits`);
+    }
+    rateLimitWaits++;
+    // Capped backoff + jitter to de-sync the ~25 concurrent callers (a thundering
+    // herd retrying in lockstep just re-trips the limit).
+    const wait = Math.min(rateLimitWaits * 3000, 30000) + Math.floor(Math.random() * 1000);
+    console.log(`    Rate limited on ${procedure}, waiting ${Math.round(wait / 1000)}s (${rateLimitWaits}/${MAX_RATE_LIMIT_WAITS})`);
+    await sleep(wait);
+  }
+
   for (let attempt = 1; attempt <= retries; attempt++) {
     const base = useGateway ? GATEWAY : API2;
     const url = `${base}/${procedure}?input=${encodeURIComponent(JSON.stringify(input))}`;
@@ -87,23 +105,18 @@ async function trpc(procedure, input = {}, retries = 5) {
       // 200 carrying an {error} envelope (api2 uses honest status codes). This is
       // a per-request upstream failure, NOT a sign the gateway is down — so do
       // NOT switch backends: api2 rate-limits ~80% of requests at this
-      // concurrency, while the gateway coalesces them fine. Fail fast on a
-      // permanent 4xx (e.g. a deleted user → 404); retry transient errors here.
+      // concurrency, while the gateway coalesces them fine.
       const msg = String(json?.error?.message ?? 'missing result');
       const upstream = Number(msg.match(/http (\d{3})/)?.[1]);
-      if (upstream >= 400 && upstream < 500 && upstream !== 429) {
-        throw new Error(`${procedure} failed: ${upstream}`);
-      }
+      // A masked upstream rate limit: wait it out without burning the budget.
+      if (upstream === 429) { await waitOutRateLimit(); attempt--; continue; }
+      // Any other permanent 4xx (e.g. a deleted user → 404) won't change on retry.
+      if (upstream >= 400 && upstream < 500) throw new Error(`${procedure} failed: ${upstream}`);
       if (attempt === retries) throw new Error(`${procedure} returned no result: ${msg.slice(0, 120)}`);
       await sleep(attempt * 2000);
       continue;
     }
-    if (res.status === 429) {
-      const wait = attempt * 2000;
-      console.log(`    Rate limited on ${procedure}, waiting ${wait / 1000}s (attempt ${attempt}/${retries})`);
-      await sleep(wait);
-      continue;
-    }
+    if (res.status === 429) { await waitOutRateLimit(); attempt--; continue; }
     // 5xx from the gateway → fall back to api2; any other status is a real error.
     if (useGateway && res.status >= 500) { switchToApi2(`HTTP ${res.status}`); attempt--; continue; }
     throw new Error(`${procedure} failed: ${res.status}`);
